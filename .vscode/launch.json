@@ -4,6 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+
         {
             "type": "java",
             "name": "Current File",
@@ -23,6 +25,34 @@
             "request": "launch",
             "mainClass": "qtriptest.tests.SingletonTest",
             "projectName": "app"
+        },
+        {
+            "type": "java",
+            "name": "TestCase_01",
+            "request": "launch",
+            "mainClass": "qtriptest.tests.testCase_01",
+            "projectName": "TestCase01"
+        },
+        {
+            "type": "java",
+            "name": "TestCase_02",
+            "request": "launch",
+            "mainClass": "qtriptest.tests.testCase_02",
+            "projectName": "TestCase02"
+        },
+        {
+            "type": "java",
+            "name": "TestCase_03",
+            "request": "launch",
+            "mainClass": "qtriptest.tests.testCase_03",
+            "projectName": "TestCase03"
+        },
+        {
+            "type": "java",
+            "name": "TestCase_04",
+            "request": "launch",
+            "mainClass": "qtriptest.tests.testCase_04",
+            "projectName": "TestCase04"
         }
     ]
 }

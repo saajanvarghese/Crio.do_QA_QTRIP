@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import java.time.Duration;
 import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 
@@ -45,16 +48,24 @@ public class LoginPage {
         passwordInput.clear();
         passwordInput.sendKeys(password);
         login.click();
-        Thread.sleep(5000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@onclick='Logout()']")));
+
         Assert.assertTrue(logout.isDisplayed(), "User Logged In");
-        //Assert.assertTrue(logoutbtn.isDisplayed(), "Logout Button is Displayed");
+
         return true;
     }
 
-    public void logOutUser() throws InterruptedException{
+    public Boolean logOutUser() throws InterruptedException{
 
         logout.click();
-        Thread.sleep(2000);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@class='nav-link login register']")));
+        
         Assert.assertTrue(login_btn.isDisplayed(), "User Logged Out");
+
+        return true;
     }
 }

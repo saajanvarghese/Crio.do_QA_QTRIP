@@ -4,7 +4,7 @@ import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
+
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -38,7 +38,7 @@ public class RegisterPage {
 
     public Boolean registerNewUser(String username, String password, String confirmpassword, Boolean makeUserDynamic) throws InterruptedException {
        
-        //driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
+        driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
 
         if(makeUserDynamic) {
             emailAddress=username.split("@")[0]+UUID.randomUUID().toString()+"@"+username.split("@")[1];

@@ -12,12 +12,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.logging.Logs;
-
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
@@ -69,16 +63,30 @@ public class testCase_01 {
             else{
                 logStatus("Page Test", "User Registeration Failed", "Failure");
             }
+
+            System.out.println(status);
             Assert.assertTrue(status, "User Registration Failed");
             
             lastGeneratedUserName = register.USER_EMAIL;
             LoginPage login = new LoginPage(driver);
 
-            login.logInUser(lastGeneratedUserName, "Saj@123");
-
+           status =login.logInUser(lastGeneratedUserName, "Saj@123");
+           if(status){
             logStatus("Page Test", "User Logged In Successfully", "Success");
-            login.logOutUser();
-            logStatus("Page Test", "User Logged Out Successfully", "Success");
+           }
+           else{
+            logStatus("Page Test", "User Logged In Fail", "Fail");
+           }
+           Assert.assertTrue(status, "User Login Failed");
+
+            status = login.logOutUser();
+            if(status){
+                logStatus("Page Test", "User Logged Out Successfully", "Success");
+               }
+               else{
+                logStatus("Page Test", "User Logged Out Fail", "Fail");
+               }
+               Assert.assertTrue(status, "User Login Out Failed");
         }
         catch(Exception e){
             logStatus("Page Test", "TestCase 01 Validation", "Failed");
@@ -86,7 +94,7 @@ public class testCase_01 {
         }            
         }
 
-        @AfterSuite(enabled = false)
+        @AfterSuite(enabled = true)
         public static void quitDriver() throws MalformedURLException {
         driver.close();
         driver.quit();
