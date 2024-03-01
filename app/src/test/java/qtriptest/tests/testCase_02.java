@@ -10,13 +10,6 @@ import java.net.URL;
 import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.logging.Logs;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
@@ -51,7 +44,7 @@ public class testCase_02 {
         logStatus("driver", "Initializing driver", "Success");     
     }
     
-    @Test(description = "Verify the functionality of search filters", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 2, groups={"Search and Filter flow"}, enabled = true)
+   @Test(description = "Verify the functionality of search filters", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 2, groups={"Search and Filter flow"}, enabled = true)
     public static void TestCase02(String city, String category_filter, String duration_filter, String expectedFilterResults, String expectedUnfilterResults) throws InterruptedException {
 
         Boolean status;

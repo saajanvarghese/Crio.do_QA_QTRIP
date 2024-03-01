@@ -11,9 +11,10 @@ import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.WebElement;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -63,36 +64,89 @@ public class testCase_03 {
             else{
                 logStatus("Page Test", "User Registeration Failed", "Failure");
             }
+
+            Assert.assertTrue(status, "User Registration Failed");
+            
             lastGeneratedUserName = register.USER_EMAIL;
             LoginPage login = new LoginPage(driver);
 
-            login.logInUser(lastGeneratedUserName, "Saj@123");
-
-            Thread.sleep(2000);
+           status =login.logInUser(lastGeneratedUserName, "Saj@123");
+           if(status){
+            logStatus("Page Test", "User Logged In Successfully", "Success");
+           }
+           else{
+            logStatus("Page Test", "User Logged In Fail", "Fail");
+           }
+           Assert.assertTrue(status, "User Login Failed");
 
             AdventurePage adventurepage = new AdventurePage(driver);
 
-            adventurepage.searchCity(cityName);
+            status = adventurepage.searchCity(cityName);
+
+            if(status){
+                logStatus("Page Test", "Search city Functionality Successful", "Success");
+               }
+               else{
+                logStatus("Page Test", "Search city Functionality Failed", "Fail");
+               }
 
             Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?" +"city=" + cityName.toLowerCase()), "Success");
 
-            adventurepage.selectAdventure(adVentureName);
+            status = adventurepage.selectAdventure(adVentureName);
+
+            if(status){
+                logStatus("Page Test", "Success : Adventure Page Exists", "Success");
+               }
+               else{
+                logStatus("Page Test", "Fail : Adventure Page Does not Exists", "Fail");
+               }
+               WebElement adventurePageCheck = driver.findElement(By.id("adventure-name"));
+               String adventureCheck = adventurePageCheck.getText();
+               Assert.assertTrue(adventureCheck.contains(adVentureName), "Fail : Adventure Page Does not Exists");
+
+               Thread.sleep(3000);
 
             AdventureDetailsPage adventuredetails = new AdventureDetailsPage(driver);
 
-            adventuredetails.bookAdventure(guestName, date, count);
-            
+             status =  adventuredetails.bookAdventure(guestName, date, count);
+
+             if(status){
+                logStatus("Page Test", "Adventure Booked Successfully", "Success");
+               }
+               else{
+                logStatus("Page Test", "Adventure Booked Failed", "Fail");
+               }
+
+               Assert.assertTrue(status, "Adventure Booking Failed");
+
+               adventuredetails.navigateToHistoryPage();
+
+               Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/reservations/"));
+
+
             HistoryPage historypage = new HistoryPage(driver);
 
-            historypage.navigateToHistoryPage();
+            Thread.sleep(3000);
 
-            Thread.sleep(5000);
+           status = historypage.transactiondetails();
 
-            historypage.transactiondetails();
+           if(status){
+            logStatus("Page Test", "Transaction Id is Removed", "Success");
+           }
+           else{
+            logStatus("Page Test", "Error Occured during Removal of Transaction Id", "Fail");
+           }
 
-            logStatus("Page Test", "User Logged In Successfully", "Success");
-            login.logOutUser();
-            logStatus("Page Test", "User Logged Out Successfully", "Success");
+           Assert.assertTrue(status, "Fail: Error Occured during Removal of Transaction Id");
+
+           status = login.logOutUser();
+           if(status){
+               logStatus("Page Test", "User Logged Out Successfully", "Success");
+              }
+              else{
+               logStatus("Page Test", "User Logged Out Fail", "Fail");
+              }
+              Assert.assertTrue(status, "User Login Out Failed");
         }
         catch(Exception e){
             logStatus("Page Test", "TestCase 03 Validation", "Failed");

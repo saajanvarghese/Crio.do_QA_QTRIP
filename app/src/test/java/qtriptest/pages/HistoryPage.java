@@ -34,18 +34,18 @@ public class HistoryPage {
         }
     }
 
-    public void transactiondetails() throws InterruptedException{
+    public Boolean transactiondetails() throws InterruptedException{
 
         WebElement transaction_id = driver.findElement(By.xpath("//tbody[@id='reservation-table']//tr//th"));
 
         String transaction_id_value = transaction_id.getText();
 
-        System.out.println(transaction_id_value);
+        System.out.println("Transaction ID : "+transaction_id_value);
 
         WebElement cancelbtn = driver.findElement(By.className("cancel-button"));
         cancelbtn.click();
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
 
         driver.navigate().refresh();
 
@@ -66,6 +66,8 @@ public class HistoryPage {
         String finalmessage = message;
 
         Assert.assertEquals(finalmessage, "Transaction ID is not present","Success: Transaction ID removed after page refresh ");
+
+        return true;
     }
 
     public void bookingHistoryCheck() throws InterruptedException{

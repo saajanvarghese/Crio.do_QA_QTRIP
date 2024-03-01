@@ -1,11 +1,14 @@
 package qtriptest.pages;
 
+import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class AdventureDetailsPage {
@@ -17,9 +20,9 @@ public class AdventureDetailsPage {
         PageFactory.initElements(factory, this);
     }
 
-    public void bookAdventure(String guestName, String date, String count) throws InterruptedException{
+    public Boolean bookAdventure(String guestName, String date, String count) throws InterruptedException{
 
-        WebElement guest_Name = driver.findElement(By.xpath("//input[@name='name']"));
+        WebElement guest_Name = driver.findElement(By.xpath("//input[@type='text']"));
         guest_Name.click();
 
         guest_Name.sendKeys(guestName);
@@ -48,7 +51,8 @@ public class AdventureDetailsPage {
 
         reservebtn.click();
 
-        Thread.sleep(3000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reserved-banner")));
 
         WebElement confirmReservation = driver.findElement(By.id("reserved-banner"));
 
@@ -56,6 +60,12 @@ public class AdventureDetailsPage {
 
         Assert.assertTrue(confirmReservationtxt.contains("successful") , "Adventure Booking Successful");
 
+        return true;
     }
+    public void navigateToHistoryPage() throws InterruptedException{
 
+        WebElement linkElement = driver.findElement(By.xpath("//div[@class='alert alert-success']//a"));
+        linkElement.click();
+
+    }
 }

@@ -9,14 +9,11 @@ import qtriptest.pages.HomePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -33,7 +30,7 @@ public class testCase_04 {
     }
 
     //Initialize webdriver for our unit tests
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
     public static void createDriver() throws MalformedURLException {
         logStatus("driver", "Initializing driver", "Started");
         // Launch Browser using Zalenium
@@ -48,7 +45,7 @@ public class testCase_04 {
         logStatus("driver", "Initializing driver", "Success");   
     }
 
-   @Test(description = "Booking adventure and validate Reservation Table", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 4, groups={"Reliability Flow"}, enabled = true)
+  @Test(description = "Booking adventure and validate Reservation Table", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 4, groups={"Reliability Flow"}, enabled = true)
     public static void TestCase04(String username,String password,String set1,String set2,String set3) throws InterruptedException, MalformedURLException
     {
         String[] dataset1=set1.split(";");
