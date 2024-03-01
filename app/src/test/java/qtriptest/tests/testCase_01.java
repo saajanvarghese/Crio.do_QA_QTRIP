@@ -30,7 +30,7 @@ public class testCase_01 {
                 message, status));
     }
 
-    // Initialize webdriver for our unit tests
+   // Initialize webdriver for our unit tests
     @BeforeSuite(alwaysRun = true)
     public static void createDriver() throws MalformedURLException {
         logStatus("driver", "Initializing driver", "Started");
@@ -46,7 +46,7 @@ public class testCase_01 {
         logStatus("driver", "Initializing driver", "Success");   
     }
 
-    @Test(description = "Verify user registration -login -logout", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 1, groups={"Login Flow"}, enabled = true)
+     @Test(description = "Verify user registration -login -logout", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 1, groups={"Login Flow"}, enabled = true)
     public static void TestCase01(String username, String password) throws InterruptedException {
         Boolean status;
         try{

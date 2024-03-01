@@ -70,13 +70,16 @@ public class HistoryPage {
         return true;
     }
 
-    public void bookingHistoryCheck() throws InterruptedException{
+    public Boolean bookingHistoryCheck() throws InterruptedException{
 
        List <WebElement> reservationTableCheck = driver.findElements(By.xpath("//th[@scope='row']"));
 
       int reservationsTableCheck = reservationTableCheck.size();
 
        Assert.assertTrue(reservationsTableCheck == 3, "Verified Reservation Table");
+
+       return true;
+
 }
 
 }

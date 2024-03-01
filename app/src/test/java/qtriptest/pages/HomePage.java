@@ -115,24 +115,4 @@ public class HomePage {
         return true;
     }
 
-
-
-
-    public void search_city(String city) throws InterruptedException{
-        Thread.sleep(2000);
-
-
-        WebElement searchCity = driver.findElement(By.xpath("//input[@id='autocomplete']"));
-        searchCity.click();
-        Thread.sleep(1000);
-        searchCity.sendKeys(city);
-        Thread.sleep(2000);
-        WebElement searchSuggestion = driver.findElement(By.xpath("//ul[@id='results']/a"));
-        Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is Present");
-
-        searchSuggestion.click();
-
-        Thread.sleep(1000);
-    }
-
 }

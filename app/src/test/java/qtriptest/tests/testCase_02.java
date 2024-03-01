@@ -28,7 +28,7 @@ public class testCase_02 {
                 message, status));
     }
 
-    // Initialize webdriver for our unit tests
+   // Initialize webdriver for our unit tests
     @BeforeSuite(alwaysRun = true)
     public static void createDriver() throws MalformedURLException, InterruptedException {
         logStatus("driver", "Initializing driver", "Started");

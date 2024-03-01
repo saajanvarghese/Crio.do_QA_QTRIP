@@ -9,7 +9,6 @@ import qtriptest.pages.HomePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,7 +29,7 @@ public class testCase_03 {
                 message, status));
     }
 
-    // Initialize webdriver for our unit tests
+    //Initialize webdriver for our unit tests
     @BeforeTest(alwaysRun = true)
     public static void createDriver() throws MalformedURLException, InterruptedException {
         logStatus("driver", "Initializing driver", "Started");

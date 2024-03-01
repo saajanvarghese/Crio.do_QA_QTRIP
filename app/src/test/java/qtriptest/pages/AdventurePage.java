@@ -28,7 +28,7 @@ public class AdventurePage {
         Thread.sleep(1000);
         searchCity.sendKeys(cityName);
         Thread.sleep(2000);
-        WebElement searchSuggestion = driver.findElement(By.xpath("//ul[@id='results']/a"));
+        WebElement searchSuggestion = driver.findElement(By.xpath("//ul[@id='results']//a"));
         Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is Present");
 
         searchSuggestion.click();
@@ -54,7 +54,7 @@ public class AdventurePage {
 
         //Thread.sleep(2000);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("adventure-name")), adVentureName));
 
         return true;
