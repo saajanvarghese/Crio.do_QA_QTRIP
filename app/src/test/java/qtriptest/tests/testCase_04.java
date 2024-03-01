@@ -47,6 +47,7 @@ public class testCase_04 {
 
         logStatus("driver", "Initializing driver", "Success");   
     }
+
    @Test(description = "Booking adventure and validate Reservation Table", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 4, groups={"Reliability Flow"}, enabled = true)
     public static void TestCase04(String username,String password,String set1,String set2,String set3) throws InterruptedException, MalformedURLException
     {

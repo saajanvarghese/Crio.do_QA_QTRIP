@@ -34,27 +34,35 @@ public class HomePage {
         registerElement.click();
     }
 
-    // public void navigateToHome() {
-    //     String url = "https://qtripdynamic-qa-frontend.vercel.app/pages/register/";
-    //     if(this.driver.getCurrentUrl() != url){
-    //         this.driver.get(url);
-    //     }    }
+    public void navigateToHomePage() {
+        String url = "https://qtripdynamic-qa-frontend.vercel.app/";
+        if(this.driver.getCurrentUrl() != url){
+            this.driver.get(url);
+        }
+    }
 
-    public void searchCity(String city, String category_filter, String duration_filter, String expectedFilterResults, String expectedUnfilterResults) throws InterruptedException{
+
+    public Boolean searchCity(String city) throws InterruptedException{
         
         WebElement searchCity = driver.findElement(By.xpath("//input[@class='hero-input']"));
         searchCity.click();
         Thread.sleep(1000);
         searchCity.sendKeys(city);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         WebElement searchSuggestion = driver.findElement(By.xpath("//ul[@id='results']/a"));
-        Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is Present");
+        Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is not Present");
 
         searchSuggestion.click();
 
         Thread.sleep(1000);
 
         Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?" +"city=" + city.toLowerCase()), "Success");
+
+        return true;
+
+    }
+
+    public Boolean check_filtered_results(String category_filter, String duration_filter, String expectedFilterResults) throws InterruptedException{
 
         WebElement category_dropdown_element = driver.findElement(By.xpath("//select[@id='category-select']"));
 
@@ -64,26 +72,13 @@ public class HomePage {
         Thread.sleep(2000);
         category_dropdown.selectByVisibleText(category_filter);
 
-        //Thread.sleep(2000);
-
-
-        //String category_dropdown_value = category_dropdown_element.  //div[@class='category-filter']//div
-
-        // WebElement category_dropdown_visible_value = driver.findElement(By.xpath("//div[@class='category-filter']//div"));
-
-        // String category_dropdown_value = category_dropdown_visible_value.getText();
-
-        // Assert.assertEquals(category_dropdown_value, category_dropdown_value);
-
         Thread.sleep(3000);
         WebElement duration_dropdown_element = driver.findElement(By.xpath("//select[@id='duration-select']"));
 
-       // String category_filter ="";
         Select duration_dropdown = new Select(duration_dropdown_element);
         Thread.sleep(2000);
         duration_dropdown.selectByVisibleText(duration_filter);
  
-        //Thread.sleep(1000);
 
         Thread.sleep(3000);
 
@@ -97,10 +92,15 @@ public class HomePage {
 
       Thread.sleep(5000);
 
+      return true;
+    }
+
+    public Boolean check_unfiltered_results(String expectedUnfilterResults) throws InterruptedException{
+
       WebElement category_clear = driver.findElement(By.xpath("//div[@onclick='clearCategory(event)']"));
       category_clear.click();
 
-      Thread.sleep(10000); //select[@id='category-select']/following-sibling::div[@class='ms-3'] //div[@onclick="clearCategory(event)"]
+      Thread.sleep(5000); 
 
       WebElement duration_clear = driver.findElement(By.xpath("//div[@onclick='clearDuration(event)']"));
       duration_clear.click();
@@ -112,8 +112,11 @@ public class HomePage {
 
       Assert.assertEquals(unfiltersearchResultsCount, expectedUnfilterResults);
 
-        
+        return true;
     }
+
+
+
 
     public void search_city(String city) throws InterruptedException{
         Thread.sleep(2000);

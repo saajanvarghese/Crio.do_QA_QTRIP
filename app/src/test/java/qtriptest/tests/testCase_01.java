@@ -45,6 +45,7 @@ public class testCase_01 {
 
         logStatus("driver", "Initializing driver", "Success");   
     }
+
     @Test(description = "Verify user registration -login -logout", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 1, groups={"Login Flow"}, enabled = true)
     public static void TestCase01(String username, String password) throws InterruptedException {
         Boolean status;
@@ -94,7 +95,7 @@ public class testCase_01 {
         }            
         }
 
-        @AfterSuite(enabled = true)
+        @AfterSuite(enabled = false)
         public static void quitDriver() throws MalformedURLException {
         driver.close();
         driver.quit();

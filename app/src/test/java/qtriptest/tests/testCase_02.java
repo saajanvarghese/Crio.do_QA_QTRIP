@@ -51,19 +51,45 @@ public class testCase_02 {
         logStatus("driver", "Initializing driver", "Success");     
     }
     
-   // @Test(description = "Verify the functionality of search filters", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 2, groups={"Search and Filter flow"}, enabled = true)
+    @Test(description = "Verify the functionality of search filters", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 2, groups={"Search and Filter flow"}, enabled = true)
     public static void TestCase02(String city, String category_filter, String duration_filter, String expectedFilterResults, String expectedUnfilterResults) throws InterruptedException {
 
-        //Boolean status;
+        Boolean status;
         try {
             logStatus("Page Test", "TestCase02 Validation", "Started");
             HomePage home = new HomePage(driver);
 
-            driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+            home.navigateToHomePage();
 
-            //String cityName = "Kolkata";category_filter
-            //Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?" +"city=" + city.toLowerCase()), "Success");
-            home.searchCity(city, category_filter, duration_filter, expectedFilterResults, expectedUnfilterResults);
+           status = home.searchCity(city);
+
+           if(status){
+            logStatus("Page Test", "Search city Functionality Successful", "Success");
+           }
+           else{
+            logStatus("Page Test", "Search city Functionality Failed", "Fail");
+           }
+
+           Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?" +"city=" + city.toLowerCase()), "Success");
+
+          status = home.check_filtered_results(category_filter, duration_filter, expectedFilterResults);
+          if(status){
+            logStatus("Page Test", "Check Filtered Results Successful", "Success");
+           }
+           else{
+            logStatus("Page Test", "Check Filtered Results Failed", "Fail");
+           }
+           Assert.assertTrue(status, "Check Filtered Results Failed");
+
+           status = home.check_unfiltered_results(expectedUnfilterResults);
+           if(status){
+            logStatus("Page Test", "Check UnFiltered Results Successful", "Success");
+           }
+           else{
+            logStatus("Page Test", "Check UnFiltered Results Failed", "Fail");
+           }
+           Assert.assertTrue(status, "Check Filtered Results Failed");
+
         } catch (Exception e) {
             //TODO: handle exception
             logStatus("Page Test", "Test 2 Validation", "failed");
