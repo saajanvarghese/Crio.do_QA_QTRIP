@@ -39,6 +39,7 @@ public class testCase_02 {
         System.out.println("Hashcode of driver is" + driver.hashCode());
 
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
+        driver.manage().window().maximize();
         Thread.sleep(3000);
 
         logStatus("driver", "Initializing driver", "Success");     

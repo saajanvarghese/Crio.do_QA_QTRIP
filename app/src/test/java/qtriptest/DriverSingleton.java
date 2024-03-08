@@ -1,8 +1,6 @@
 package qtriptest;
 
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.MalformedInputException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,12 +21,10 @@ public class DriverSingleton {
 
  ChromeOptions options = new ChromeOptions();
        
-
-
-        driver = new ChromeDriver(options);
+       driver = new ChromeDriver(options);
 		WebDriverManager.chromedriver().setup();
 
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
         System.out.println("Create Driver");
     }
