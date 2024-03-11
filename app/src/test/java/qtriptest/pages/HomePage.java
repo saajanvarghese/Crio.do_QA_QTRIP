@@ -1,11 +1,9 @@
 package qtriptest.pages;
 
 import java.util.List;
-import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -19,6 +17,24 @@ public class HomePage {
 
     @FindBy(xpath = "//a[@class='nav-link login register']")
     private WebElement registerElement;
+
+    @FindBy(xpath = "//input[@class='hero-input']")
+    private WebElement searchCity;
+
+    @FindBy(xpath = "//ul[@id='results']/a")
+    private WebElement searchSuggestion;
+
+    @FindBy(xpath = "//select[@id='category-select']")
+    private WebElement category_dropdown_element;
+
+    @FindBy(xpath = "//select[@id='duration-select']")
+    private WebElement duration_dropdown_element;
+
+    @FindBy(xpath = "//div[@onclick='clearCategory(event)']")
+    private WebElement category_clear;
+
+    @FindBy(xpath = "//div[@onclick='clearDuration(event)']")
+    private WebElement duration_clear;
 
     public HomePage(WebDriver driver){
         this.driver = driver;
@@ -43,13 +59,11 @@ public class HomePage {
 
 
     public Boolean searchCity(String city) throws InterruptedException{
-        
-        WebElement searchCity = driver.findElement(By.xpath("//input[@class='hero-input']"));
+
         searchCity.click();
         Thread.sleep(1000);
         searchCity.sendKeys(city);
         Thread.sleep(3000);
-        WebElement searchSuggestion = driver.findElement(By.xpath("//ul[@id='results']/a"));
         Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is not Present");
 
         searchSuggestion.click();
@@ -64,16 +78,11 @@ public class HomePage {
 
     public Boolean check_filtered_results(String category_filter, String duration_filter, String expectedFilterResults) throws InterruptedException{
 
-        WebElement category_dropdown_element = driver.findElement(By.xpath("//select[@id='category-select']"));
-
-       // String duration_filter = ""; duration_dropdown_element //select[@name='duration']
-
         Select category_dropdown = new Select(category_dropdown_element);
         Thread.sleep(2000);
         category_dropdown.selectByVisibleText(category_filter);
 
         Thread.sleep(3000);
-        WebElement duration_dropdown_element = driver.findElement(By.xpath("//select[@id='duration-select']"));
 
         Select duration_dropdown = new Select(duration_dropdown_element);
         Thread.sleep(2000);
@@ -97,12 +106,10 @@ public class HomePage {
 
     public Boolean check_unfiltered_results(String expectedUnfilterResults) throws InterruptedException{
 
-      WebElement category_clear = driver.findElement(By.xpath("//div[@onclick='clearCategory(event)']"));
       category_clear.click();
 
       Thread.sleep(5000); 
 
-      WebElement duration_clear = driver.findElement(By.xpath("//div[@onclick='clearDuration(event)']"));
       duration_clear.click();
 
       Thread.sleep(5000);

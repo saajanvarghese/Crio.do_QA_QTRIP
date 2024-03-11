@@ -6,12 +6,8 @@ import qtriptest.pages.HomePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.UUID;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.logging.Logs;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;

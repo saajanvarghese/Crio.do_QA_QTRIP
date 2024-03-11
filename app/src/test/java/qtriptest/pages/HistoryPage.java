@@ -2,13 +2,10 @@ package qtriptest.pages;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.TimeoutException;
 import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -18,6 +15,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HistoryPage {
     WebDriver driver;
+
+    @FindBy(xpath = "//tbody[@id='reservation-table']//tr//th")
+    private WebElement transaction_id;
+
+    @FindBy(className  = "cancel-button")
+    private WebElement cancelbtn;
     
     public HistoryPage(WebDriver driver){
         this.driver = driver;
@@ -36,13 +39,9 @@ public class HistoryPage {
 
     public Boolean transactiondetails() throws InterruptedException{
 
-        WebElement transaction_id = driver.findElement(By.xpath("//tbody[@id='reservation-table']//tr//th"));
-
         String transaction_id_value = transaction_id.getText();
 
         System.out.println("Transaction ID : "+transaction_id_value);
-
-        WebElement cancelbtn = driver.findElement(By.className("cancel-button"));
         cancelbtn.click();
 
         Thread.sleep(3000);

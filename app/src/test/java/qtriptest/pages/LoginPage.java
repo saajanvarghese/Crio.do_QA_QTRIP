@@ -5,7 +5,6 @@ import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -32,9 +31,6 @@ public class LoginPage {
 
     @FindBy(xpath = "//div[@class='nav-link login register']")
     private WebElement logout;
-
-    // @FindBy(xpath = "//div[@onclick='Logout()'']")
-    // private WebElement logoutbtn;
 
     public LoginPage(WebDriver driver){
         this.driver = driver;

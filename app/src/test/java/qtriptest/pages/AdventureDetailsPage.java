@@ -4,7 +4,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +14,25 @@ import org.testng.Assert;
 public class AdventureDetailsPage {
 
     WebDriver driver;
+
+    @FindBy(xpath = "//input[@class='hero-input']")
+    private WebElement guest_Name;
+
+    @FindBy(xpath = "//input[@name='date']")
+    private WebElement reserveDate;
+
+    @FindBy(xpath = "//input[@name='person']")
+    private WebElement personCount;
+
+    @FindBy(xpath = "//button[@class='reserve-button']")
+    private WebElement reservebtn;
+
+    @FindBy(id = "reserved-banner")
+    private WebElement confirmReservation;
+
+    @FindBy(xpath = "//div[@class='alert alert-success']//a")
+    private WebElement linkElement;
+
     public AdventureDetailsPage(WebDriver driver){
         this.driver = driver;
         AjaxElementLocatorFactory factory = new AjaxElementLocatorFactory(driver, 20);
@@ -21,15 +40,11 @@ public class AdventureDetailsPage {
     }
 
     public Boolean bookAdventure(String guestName, String date, String count) throws InterruptedException{
-
-        WebElement guest_Name = driver.findElement(By.xpath("//input[@type='text']"));
         guest_Name.click();
 
         guest_Name.sendKeys(guestName);
 
         Thread.sleep(1000);
-
-        WebElement reserveDate = driver.findElement(By.xpath("//input[@name='date']"));
 
         reserveDate.click();
 
@@ -39,22 +54,16 @@ public class AdventureDetailsPage {
 
         Thread.sleep(1000);
 
-        WebElement personCount = driver.findElement(By.xpath("//input[@name='person']"));
-
         personCount.click();
 
         personCount.sendKeys(count);
 
         Thread.sleep(1000);
 
-        WebElement reservebtn = driver.findElement(By.xpath("//button[@class='reserve-button']"));
-
         reservebtn.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reserved-banner")));
-
-        WebElement confirmReservation = driver.findElement(By.id("reserved-banner"));
 
         String confirmReservationtxt = confirmReservation.getText();
 
@@ -63,8 +72,6 @@ public class AdventureDetailsPage {
         return true;
     }
     public void navigateToHistoryPage() throws InterruptedException{
-
-        WebElement linkElement = driver.findElement(By.xpath("//div[@class='alert alert-success']//a"));
         linkElement.click();
 
     }

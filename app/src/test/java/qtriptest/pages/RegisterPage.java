@@ -50,12 +50,9 @@ public class RegisterPage {
             passwordInput.clear();
             passwordInput.sendKeys(password);
             confirmPasswordInput.clear();
-            // Thread.sleep(5000);
             confirmPasswordInput.sendKeys(confirmpassword);
-            //Thread.sleep(5000);
             registerNowElement.click();
             Thread.sleep(3000);
-        
 
         this.USER_EMAIL = emailAddress;
         return this.driver.getCurrentUrl().endsWith("/login");

@@ -3,8 +3,6 @@ package qtriptest.tests;
 import qtriptest.DP;
 import qtriptest.DriverSingleton;
 import qtriptest.pages.HomePage;
-import qtriptest.pages.LoginPage;
-import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
