@@ -69,7 +69,6 @@ public class testCase_01 {
 
             status = register.registerNewUser(username, password, true);
             if(status){
-                System.out.println(test);
                 logStatus("Page Test", "User Registeration Successfully", "Success");
                 test.log(LogStatus.PASS, "User Registered Successfull");
                 test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to RegisterPage is Successful");
@@ -79,8 +78,6 @@ public class testCase_01 {
                 test.log(LogStatus.FAIL, "User Registered Unsuccessfull");
                 test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to RegisterPage is unsuccessful");
             }
-
-            System.out.println(status);
             Assert.assertTrue(status, "User Registration Failed");
             
             lastGeneratedUserName = register.USER_EMAIL;
@@ -99,8 +96,6 @@ public class testCase_01 {
            }
            Assert.assertTrue(status, "User Login Failed");
 
-           Thread.sleep(5000);
-
             status = login.logOutUser();
             if(status){
                 logStatus("Page Test", "User Log Out Successfully", "Success");
@@ -109,8 +104,8 @@ public class testCase_01 {
                }
                else{
                 logStatus("Page Test", "User Logged Out Fail", "Fail");
-                test.log(LogStatus.FAIL, "User Login Unsuccessful");
-                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to LoginPage : Unsuccessful");
+                test.log(LogStatus.FAIL, "User Logged Out Fail");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "User Logged Out Fail");
                }
                Assert.assertTrue(status, "User Login Out Failed");
         }
@@ -120,10 +115,9 @@ public class testCase_01 {
         }            
         }
 
-        @AfterSuite(enabled = true)
+        @AfterSuite(enabled = false)
         public static void quitDriver() throws MalformedURLException {
             reports.endTest(test);
-
             reports.flush();
 
         driver.close();

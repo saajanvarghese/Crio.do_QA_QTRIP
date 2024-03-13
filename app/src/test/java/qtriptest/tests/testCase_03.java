@@ -3,6 +3,7 @@ package qtriptest.tests;
 import qtriptest.DP;
 import qtriptest.DriverSingleton;
 import qtriptest.ReportSingleton;
+import qtriptest.SeleniumWrapper;
 import qtriptest.pages.AdventureDetailsPage;
 import qtriptest.pages.AdventurePage;
 import qtriptest.pages.HistoryPage;
@@ -21,11 +22,14 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 public class testCase_03 {
     public static String lastGeneratedUserName;
     static WebDriver driver;
     static ExtentReports reports;
+    static ExtentTest test;
 
     public static void logStatus(String type, String message, String status) {
 
@@ -34,7 +38,7 @@ public class testCase_03 {
     }
 
     //Initialize webdriver for our unit tests
-   // @BeforeTest(alwaysRun = true)
+    @BeforeTest(alwaysRun = true)
     public static void createDriver() throws MalformedURLException, InterruptedException {
         logStatus("driver", "Initializing driver", "Started");
         // Launch Browser using Zalenium
@@ -53,7 +57,7 @@ public class testCase_03 {
         logStatus("driver", "Initializing driver", "Success");     
     }
 
-   //@Test(description = "Verify Reserving an adventure functionality", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 3, groups={"Booking and Cancellation Flow"}, enabled = true)
+   @Test(description = "Verify Reserving an adventure functionality", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 3, groups={"Booking and Cancellation Flow"}, enabled = true)
     public static void TestCase03(String userName, String password, String cityName, String adVentureName,String guestName, String date, String count) throws InterruptedException {
         Boolean status;
         try{
@@ -67,9 +71,13 @@ public class testCase_03 {
             status = register.registerNewUser(userName, password, true);
             if(status){
                 logStatus("Page Test", "User Registeration Successfully", "Success");
+                test.log(LogStatus.PASS, "User Registered Successful");
+                test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to RegisterPage is Successful");
             }
             else{
                 logStatus("Page Test", "User Registeration Failed", "Failure");
+                test.log(LogStatus.FAIL, "User Registered Unsuccessful");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to RegisterPage is unsuccessful");
             }
 
             Assert.assertTrue(status, "User Registration Failed");
@@ -77,12 +85,16 @@ public class testCase_03 {
             lastGeneratedUserName = register.USER_EMAIL;
             LoginPage login = new LoginPage(driver);
 
-           status =login.logInUser(lastGeneratedUserName, "Saj@123");
+           status =login.logInUser(lastGeneratedUserName, password);
            if(status){
             logStatus("Page Test", "User Logged In Successfully", "Success");
+            test.log(LogStatus.PASS, "User Logged In : Success");
+            test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "User Logged In : Success");
            }
            else{
             logStatus("Page Test", "User Logged In Fail", "Fail");
+            test.log(LogStatus.FAIL, "User LogIn : Fail");
+            test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "User LogIn : Fail");
            }
            Assert.assertTrue(status, "User Login Failed");
 
@@ -92,9 +104,13 @@ public class testCase_03 {
 
             if(status){
                 logStatus("Page Test", "Search city Functionality Successful", "Success");
+                test.log(LogStatus.PASS, "Search city Functionality Successful");
+            test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Search city Functionality Successful");
                }
                else{
                 logStatus("Page Test", "Search city Functionality Failed", "Fail");
+                test.log(LogStatus.FAIL, "Search city Functionality Failed");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Search city Functionality Failed");
                }
 
             Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?" +"city=" + cityName.toLowerCase()), "Success");
@@ -103,9 +119,13 @@ public class testCase_03 {
 
             if(status){
                 logStatus("Page Test", "Success : Adventure Page Exists", "Success");
+                test.log(LogStatus.PASS, "Success : Adventure Page Exists");
+                test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Success : Adventure Page Exists");
                }
                else{
                 logStatus("Page Test", "Fail : Adventure Page Does not Exists", "Fail");
+                test.log(LogStatus.FAIL, "Fail : Adventure Page Does not Exists");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Fail : Adventure Page Does not Exists");
                }
                WebElement adventurePageCheck = driver.findElement(By.id("adventure-name"));
                String adventureCheck = adventurePageCheck.getText();
@@ -119,9 +139,13 @@ public class testCase_03 {
 
              if(status){
                 logStatus("Page Test", "Adventure Booked Successfully", "Success");
+                test.log(LogStatus.PASS, "Adventure Booked Successfully");
+                test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Adventure Booked Successfully");
                }
                else{
                 logStatus("Page Test", "Adventure Booked Failed", "Fail");
+                test.log(LogStatus.FAIL, "Adventure Booked Failed");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Adventure Booked Failed");
                }
 
                Assert.assertTrue(status, "Adventure Booking Failed");
@@ -139,9 +163,13 @@ public class testCase_03 {
 
            if(status){
             logStatus("Page Test", "Transaction Id is Removed", "Success");
+            test.log(LogStatus.PASS, "Transaction Id is Removed");
+            test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Transaction Id is Removed");
            }
            else{
             logStatus("Page Test", "Error Occured during Removal of Transaction Id", "Fail");
+            test.log(LogStatus.FAIL, "Error Occured during Removal of Transaction Id");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Error Occured during Removal of Transaction Id");
            }
 
            Assert.assertTrue(status, "Fail: Error Occured during Removal of Transaction Id");
@@ -149,9 +177,13 @@ public class testCase_03 {
            status = login.logOutUser();
            if(status){
                logStatus("Page Test", "User Logged Out Successfully", "Success");
+               test.log(LogStatus.PASS, "User LogOut : Success");
+               test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "User LogOut : Success");
               }
               else{
                logStatus("Page Test", "User Logged Out Fail", "Fail");
+               test.log(LogStatus.FAIL, "User Logged Out Fail");
+               test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "User Logged Out Fail");
               }
               Assert.assertTrue(status, "User Login Out Failed");
         }
@@ -161,8 +193,11 @@ public class testCase_03 {
         }            
         }
 
-      //  @AfterTest(enabled = false)
+        @AfterTest(enabled = false)
         public static void quitDriver() throws MalformedURLException {
+            reports.endTest(test);
+            reports.flush();
+            
         driver.close();
         driver.quit();
         logStatus("driver", "Quiting Driver", "Success");
