@@ -47,5 +47,9 @@ out/
 /nbdist/
 /.nb-gradle/
 
+# Ignore screenshots and reports folders in test resources
+/app/src/test/resources/screenshots
+/app/src/test/resources/reports
+
 ### VS Code ### - needed for debugging
 # .vscode/

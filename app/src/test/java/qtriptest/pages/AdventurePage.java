@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import qtriptest.SeleniumWrapper;
+
 public class AdventurePage {
 
     WebDriver driver;
@@ -35,13 +37,16 @@ public class AdventurePage {
 
     public Boolean searchCity(String cityName) throws InterruptedException{
 
-        searchCity.click();
-        Thread.sleep(1000);
-        searchCity.sendKeys(cityName);
+        // searchCity.click();
+        // Thread.sleep(1000);
+        // searchCity.sendKeys(cityName);
+        // Thread.sleep(2000);
+        SeleniumWrapper.enterText(searchCity, cityName);
         Thread.sleep(2000);
         Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is Present");
 
-        searchSuggestion.click();
+        SeleniumWrapper.clickAction(searchSuggestion, driver);
+        //searchSuggestion.click();
 
         Thread.sleep(1000);
 
@@ -50,13 +55,17 @@ public class AdventurePage {
 
     public Boolean selectAdventure(String adVentureName) throws InterruptedException{
 
-        adventuretxtbox.click();
+        // adventuretxtbox.click();
+        SeleniumWrapper.clickAction(adventuretxtbox, driver);
+        SeleniumWrapper.enterText(adventuretxtbox, adVentureName);
+        // adventuretxtbox.sendKeys(adVentureName);
 
-        adventuretxtbox.sendKeys(adVentureName);
+
 
         Thread.sleep(3000);
 
-        adventureSearchResults.click();
+        //adventureSearchResults.click();
+        SeleniumWrapper.clickAction(adventureSearchResults, driver);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("adventure-name")), adVentureName));

@@ -3,6 +3,9 @@ package qtriptest.pages;
 import java.time.Duration;
 import java.util.List;
 import org.testng.Assert;
+
+import qtriptest.SeleniumWrapper;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,7 +45,8 @@ public class HistoryPage {
         String transaction_id_value = transaction_id.getText();
 
         System.out.println("Transaction ID : "+transaction_id_value);
-        cancelbtn.click();
+        //cancelbtn.click();
+         SeleniumWrapper.clickAction(cancelbtn, driver);
 
         Thread.sleep(3000);
 

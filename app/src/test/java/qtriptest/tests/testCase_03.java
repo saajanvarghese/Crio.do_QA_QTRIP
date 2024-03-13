@@ -2,6 +2,7 @@ package qtriptest.tests;
 
 import qtriptest.DP;
 import qtriptest.DriverSingleton;
+import qtriptest.ReportSingleton;
 import qtriptest.pages.AdventureDetailsPage;
 import qtriptest.pages.AdventurePage;
 import qtriptest.pages.HistoryPage;
@@ -19,9 +20,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.ExtentReports;
+
 public class testCase_03 {
     public static String lastGeneratedUserName;
     static WebDriver driver;
+    static ExtentReports reports;
 
     public static void logStatus(String type, String message, String status) {
 
@@ -30,7 +34,7 @@ public class testCase_03 {
     }
 
     //Initialize webdriver for our unit tests
-    @BeforeTest(alwaysRun = true)
+   // @BeforeTest(alwaysRun = true)
     public static void createDriver() throws MalformedURLException, InterruptedException {
         logStatus("driver", "Initializing driver", "Started");
         // Launch Browser using Zalenium
@@ -39,6 +43,9 @@ public class testCase_03 {
 
         System.out.println("Hashcode of driver is" + driver.hashCode());
 
+        ReportSingleton rpt = ReportSingleton.getInstanceOfSingleTonReportClass();
+        reports = rpt.getReport();
+
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
         driver.manage().window().maximize();
         Thread.sleep(3000);
@@ -46,7 +53,7 @@ public class testCase_03 {
         logStatus("driver", "Initializing driver", "Success");     
     }
 
-   @Test(description = "Verify Reserving an adventure functionality", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 3, groups={"Booking and Cancellation Flow"}, enabled = true)
+   //@Test(description = "Verify Reserving an adventure functionality", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 3, groups={"Booking and Cancellation Flow"}, enabled = true)
     public static void TestCase03(String userName, String password, String cityName, String adVentureName,String guestName, String date, String count) throws InterruptedException {
         Boolean status;
         try{
@@ -57,7 +64,7 @@ public class testCase_03 {
             logStatus("Page Test", "navigation to Register Page", "Success");
             RegisterPage register = new RegisterPage(driver);
 
-            status = register.registerNewUser("testuser@gmail.com", "Saj@123", "Saj@123", true);
+            status = register.registerNewUser(userName, password, true);
             if(status){
                 logStatus("Page Test", "User Registeration Successfully", "Success");
             }
@@ -154,7 +161,7 @@ public class testCase_03 {
         }            
         }
 
-        @AfterTest(enabled = false)
+      //  @AfterTest(enabled = false)
         public static void quitDriver() throws MalformedURLException {
         driver.close();
         driver.quit();

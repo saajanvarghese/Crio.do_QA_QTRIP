@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import qtriptest.SeleniumWrapper;
+
 
 public class LoginPage {
 
@@ -39,11 +41,14 @@ public class LoginPage {
     }
 
     public Boolean logInUser(String emailAddress, String password) throws InterruptedException{
-        emailInput.clear();
-        emailInput.sendKeys(emailAddress);
-        passwordInput.clear();
-        passwordInput.sendKeys(password);
-        login.click();
+        // emailInput.clear();
+        // emailInput.sendKeys(emailAddress);
+        // passwordInput.clear();
+        // passwordInput.sendKeys(password);
+        SeleniumWrapper.enterText(emailInput, emailAddress);
+            SeleniumWrapper.enterText(passwordInput, password);
+            SeleniumWrapper.clickAction(login, driver);
+        //login.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@onclick='Logout()']")));

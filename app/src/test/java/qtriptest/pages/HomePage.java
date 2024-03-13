@@ -10,6 +10,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import qtriptest.SeleniumWrapper;
+
 
 public class HomePage {
     WebDriver driver;
@@ -60,13 +62,15 @@ public class HomePage {
 
     public Boolean searchCity(String city) throws InterruptedException{
 
-        searchCity.click();
-        Thread.sleep(1000);
-        searchCity.sendKeys(city);
-        Thread.sleep(3000);
+        // searchCity.click();
+        // Thread.sleep(1000);
+        // searchCity.sendKeys(city);
+        // Thread.sleep(3000);
+         SeleniumWrapper.enterText(searchCity, city);
         Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is not Present");
 
-        searchSuggestion.click();
+        //searchSuggestion.click();
+        SeleniumWrapper.clickAction(searchSuggestion, driver);
 
         Thread.sleep(1000);
 
@@ -106,11 +110,14 @@ public class HomePage {
 
     public Boolean check_unfiltered_results(String expectedUnfilterResults) throws InterruptedException{
 
-      category_clear.click();
+      //category_clear.click();
+
+      SeleniumWrapper.clickAction(category_clear, driver);
 
       Thread.sleep(5000); 
 
-      duration_clear.click();
+    //   duration_clear.click();
+    SeleniumWrapper.clickAction(duration_clear, driver);
 
       Thread.sleep(5000);
       

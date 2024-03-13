@@ -11,11 +11,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import qtriptest.SeleniumWrapper;
+
 public class AdventureDetailsPage {
 
     WebDriver driver;
 
-    @FindBy(xpath = "//input[@class='hero-input']")
+    @FindBy(xpath = "//input[@name='name']")
     private WebElement guest_Name;
 
     @FindBy(xpath = "//input[@name='date']")
@@ -40,27 +42,34 @@ public class AdventureDetailsPage {
     }
 
     public Boolean bookAdventure(String guestName, String date, String count) throws InterruptedException{
-        guest_Name.click();
+        // guest_Name.click();
 
-        guest_Name.sendKeys(guestName);
+        // guest_Name.sendKeys(guestName);
 
-        Thread.sleep(1000);
-
-        reserveDate.click();
-
-        Thread.sleep(1000);
-
-        reserveDate.sendKeys(date);
+        SeleniumWrapper.clickAction(guest_Name, driver);
+        SeleniumWrapper.enterText(guest_Name, guestName);
 
         Thread.sleep(1000);
 
-        personCount.click();
-
-        personCount.sendKeys(count);
+        //reserveDate.click();
+        SeleniumWrapper.clickAction(reserveDate, driver);
 
         Thread.sleep(1000);
 
-        reservebtn.click();
+        //reserveDate.sendKeys(date);
+        SeleniumWrapper.enterText(reserveDate, guestName);
+
+        Thread.sleep(1000);
+
+        //personCount.click();
+        SeleniumWrapper.clickAction(personCount, driver);
+        SeleniumWrapper.enterText(personCount, count);
+        //personCount.sendKeys(count);
+
+        Thread.sleep(1000);
+
+        //reservebtn.click();
+        SeleniumWrapper.clickAction(reservebtn, driver);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reserved-banner")));

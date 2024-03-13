@@ -2,6 +2,8 @@ package qtriptest.tests;
 
 import qtriptest.DP;
 import qtriptest.DriverSingleton;
+import qtriptest.ReportSingleton;
+import qtriptest.SeleniumWrapper;
 import qtriptest.pages.HomePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
@@ -15,10 +17,16 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 public class testCase_01 {
 
     public static String lastGeneratedUserName;
     static WebDriver driver;
+    static ExtentReports reports;
+    static ExtentTest test;
 
     public static void logStatus(String type, String message, String status) {
 
@@ -34,10 +42,15 @@ public class testCase_01 {
         DriverSingleton singleton = DriverSingleton.getInstanceOfSingletonBrowserClass();
         driver = singleton.getDriver();
 
+        ReportSingleton rpt = ReportSingleton.getInstanceOfSingleTonReportClass();
+        reports = rpt.getReport();
+
         System.out.println("Hashcode of driver is" + driver.hashCode());
         
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
         driver.manage().window().maximize();
+
+        test = reports.startTest("Your Test Name", "Description of your test");
 
         logStatus("driver", "Initializing driver", "Success");   
     }
@@ -47,18 +60,24 @@ public class testCase_01 {
         Boolean status;
         try{
             HomePage home = new HomePage(driver);
+            System.err.println(driver);
             home.navigateToRegister();
             Thread.sleep(2000);
             Assert.assertTrue(driver.getCurrentUrl().equals("https://qtripdynamic-qa-frontend.vercel.app/pages/register/"), "success");
             logStatus("Page Test", "navigation to Register Page", "Success");
             RegisterPage register = new RegisterPage(driver);
 
-            status = register.registerNewUser("testuser@gmail.com", "Saj@123", "Saj@123", true);
+            status = register.registerNewUser(username, password, true);
             if(status){
+                System.out.println(test);
                 logStatus("Page Test", "User Registeration Successfully", "Success");
+                test.log(LogStatus.PASS, "User Registered Successfull");
+                test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to RegisterPage is Successful");
             }
             else{
                 logStatus("Page Test", "User Registeration Failed", "Failure");
+                test.log(LogStatus.FAIL, "User Registered Unsuccessfull");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to RegisterPage is unsuccessful");
             }
 
             System.out.println(status);
@@ -67,21 +86,31 @@ public class testCase_01 {
             lastGeneratedUserName = register.USER_EMAIL;
             LoginPage login = new LoginPage(driver);
 
-           status =login.logInUser(lastGeneratedUserName, "Saj@123");
+           status =login.logInUser(lastGeneratedUserName, password);
            if(status){
             logStatus("Page Test", "User Logged In Successfully", "Success");
+            test.log(LogStatus.PASS, "User Login Successfull");
+            test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to LoginPage: Success");
            }
            else{
-            logStatus("Page Test", "User Logged In Fail", "Fail");
+            logStatus("Page Test", "User LogIn Fail", "Fail");
+            test.log(LogStatus.FAIL, "User Login Unsuccessful");
+            test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to LoginPage : Unsuccessful");
            }
            Assert.assertTrue(status, "User Login Failed");
 
+           Thread.sleep(5000);
+
             status = login.logOutUser();
             if(status){
-                logStatus("Page Test", "User Logged Out Successfully", "Success");
+                logStatus("Page Test", "User Log Out Successfully", "Success");
+                test.log(LogStatus.PASS, "User LogOut Successfull");
+                test.log(LogStatus.PASS, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "User LogOut: Success");
                }
                else{
                 logStatus("Page Test", "User Logged Out Fail", "Fail");
+                test.log(LogStatus.FAIL, "User Login Unsuccessful");
+                test.log(LogStatus.FAIL, test.addScreenCapture(SeleniumWrapper.captureScreenshot(driver)) + "Navigation to LoginPage : Unsuccessful");
                }
                Assert.assertTrue(status, "User Login Out Failed");
         }
@@ -91,8 +120,12 @@ public class testCase_01 {
         }            
         }
 
-        @AfterSuite(enabled = false)
+        @AfterSuite(enabled = true)
         public static void quitDriver() throws MalformedURLException {
+            reports.endTest(test);
+
+            reports.flush();
+
         driver.close();
         driver.quit();
         logStatus("driver", "Quiting Driver", "Success");

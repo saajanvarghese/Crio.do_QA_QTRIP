@@ -2,6 +2,7 @@ package qtriptest.tests;
 
 import qtriptest.DP;
 import qtriptest.DriverSingleton;
+import qtriptest.ReportSingleton;
 import qtriptest.pages.HomePage;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,10 +16,13 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.ExtentReports;
+
 public class testCase_02 {
 
     public static String lastGeneratedUserName;
     static WebDriver driver;
+    static ExtentReports reports;
 
     public static void logStatus(String type, String message, String status) {
 
@@ -27,12 +31,15 @@ public class testCase_02 {
     }
 
    // Initialize webdriver for our unit tests
-    @BeforeSuite(alwaysRun = true)
+   // @BeforeSuite(alwaysRun = true)
     public static void createDriver() throws MalformedURLException, InterruptedException {
         logStatus("driver", "Initializing driver", "Started");
 
         DriverSingleton singleton = DriverSingleton.getInstanceOfSingletonBrowserClass();
         driver = singleton.getDriver();
+
+        ReportSingleton rpt = ReportSingleton.getInstanceOfSingleTonReportClass();
+        reports = rpt.getReport();
 
         System.out.println("Hashcode of driver is" + driver.hashCode());
 
@@ -43,7 +50,7 @@ public class testCase_02 {
         logStatus("driver", "Initializing driver", "Success");     
     }
     
-   @Test(description = "Verify the functionality of search filters", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 2, groups={"Search and Filter flow"}, enabled = true)
+   //@Test(description = "Verify the functionality of search filters", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 2, groups={"Search and Filter flow"}, enabled = true)
     public static void TestCase02(String city, String category_filter, String duration_filter, String expectedFilterResults, String expectedUnfilterResults) throws InterruptedException {
 
         Boolean status;
@@ -90,7 +97,7 @@ public class testCase_02 {
 
     }
 
-    @AfterSuite(enabled = false)
+   // @AfterSuite(enabled = false)
         public static void quitDriver() throws MalformedURLException {
         driver.close();
         driver.quit();

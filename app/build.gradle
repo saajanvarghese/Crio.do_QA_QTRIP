@@ -45,6 +45,11 @@ implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version:
 //TestNG Dependency
 // https://mvnrepository.com/artifact/org.testng/testng
 testImplementation group: 'org.testng', name: 'testng', version: '7.9.0'
+
+//Extent Report Dependency
+// https://mvnrepository.com/artifact/com.relevantcodes/extentreports
+implementation group: 'com.relevantcodes', name: 'extentreports', version: '2.41.2'
+
 }
 
 // Additional config for Crio workspace

@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import java.time.Duration;
 import java.util.UUID;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import qtriptest.SeleniumWrapper;
 
 
 public class RegisterPage {
@@ -36,7 +41,7 @@ public class RegisterPage {
     public String USER_EMAIL = "";
 
 
-    public Boolean registerNewUser(String username, String password, String confirmpassword, Boolean makeUserDynamic) throws InterruptedException {
+    public Boolean registerNewUser(String username, String password, Boolean makeUserDynamic) throws InterruptedException {
        
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/pages/register/");
 
@@ -45,14 +50,22 @@ public class RegisterPage {
         }else{
             emailAddress = username;
         }
-            userNameInput.clear();
-            userNameInput.sendKeys(emailAddress);
-            passwordInput.clear();
-            passwordInput.sendKeys(password);
-            confirmPasswordInput.clear();
-            confirmPasswordInput.sendKeys(confirmpassword);
-            registerNowElement.click();
-            Thread.sleep(3000);
+            // userNameInput.clear();
+            // userNameInput.sendKeys(emailAddress);
+            // passwordInput.clear();
+            // passwordInput.sendKeys(password);
+            // confirmPasswordInput.clear();
+            // confirmPasswordInput.sendKeys(confirmpassword);
+            // registerNowElement.click();
+            // Thread.sleep(3000);
+
+            SeleniumWrapper.enterText(userNameInput, emailAddress);
+            SeleniumWrapper.enterText(passwordInput, password);
+            SeleniumWrapper.enterText(confirmPasswordInput, password);
+            SeleniumWrapper.clickAction(registerNowElement, driver);
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.urlToBe("https://qtripdynamic-qa-frontend.vercel.app/pages/login"));
 
         this.USER_EMAIL = emailAddress;
         return this.driver.getCurrentUrl().endsWith("/login");
