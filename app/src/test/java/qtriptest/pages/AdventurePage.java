@@ -37,16 +37,14 @@ public class AdventurePage {
 
     public Boolean searchCity(String cityName) throws InterruptedException{
 
-        // searchCity.click();
-        // Thread.sleep(1000);
-        // searchCity.sendKeys(cityName);
-        // Thread.sleep(2000);
-        SeleniumWrapper.enterText(searchCity, cityName);
-        Thread.sleep(2000);
+        SeleniumWrapper.enterText(searchCity, cityName);  //Enter City Name in SearchCity TextBox
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@id='results']/a")));
+
         Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is Present");
 
-        SeleniumWrapper.clickAction(searchSuggestion, driver);
-        //searchSuggestion.click();
+        SeleniumWrapper.clickAction(searchSuggestion, driver);  //Click Search Suggestions
 
         Thread.sleep(1000);
 
@@ -55,17 +53,13 @@ public class AdventurePage {
 
     public Boolean selectAdventure(String adVentureName) throws InterruptedException{
 
-        // adventuretxtbox.click();
-        SeleniumWrapper.clickAction(adventuretxtbox, driver);
-        SeleniumWrapper.enterText(adventuretxtbox, adVentureName);
-        // adventuretxtbox.sendKeys(adVentureName);
 
-
+        SeleniumWrapper.clickAction(adventuretxtbox, driver); //Click Adventure TextBox
+        SeleniumWrapper.enterText(adventuretxtbox, adVentureName); //Enter Text in Adventure TextBox
 
         Thread.sleep(3000);
 
-        //adventureSearchResults.click();
-        SeleniumWrapper.clickAction(adventureSearchResults, driver);
+        SeleniumWrapper.clickAction(adventureSearchResults, driver); //Click Adventure Search Results
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("adventure-name")), adVentureName));

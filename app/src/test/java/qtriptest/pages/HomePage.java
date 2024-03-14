@@ -67,22 +67,15 @@ public class HomePage {
 
     public Boolean searchCity(String city) throws InterruptedException{
 
-        // searchCity.click();
-        // Thread.sleep(1000);
-        // searchCity.sendKeys(city);
-        // Thread.sleep(3000);
-        SeleniumWrapper.clickAction(searchCity, driver);
-         SeleniumWrapper.enterText(searchCity, city);
-
-         //Thread.sleep(3000);
+        SeleniumWrapper.clickAction(searchCity, driver); //Click on Search City TextBox
+         SeleniumWrapper.enterText(searchCity, city); //Enter City Name on Search City TextBox
 
          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@id='results']/a")));
 
         Assert.assertTrue(searchSuggestion.isDisplayed(), "Searched City is not Present");
 
-        //searchSuggestion.click();
-        SeleniumWrapper.clickAction(searchSuggestion, driver);
+        SeleniumWrapper.clickAction(searchSuggestion, driver);  // Click Search Suggesstions
 
         Thread.sleep(1000);
 
@@ -122,16 +115,13 @@ public class HomePage {
 
     public Boolean check_unfiltered_results(String expectedUnfilterResults) throws InterruptedException{
 
-      //category_clear.click();
+      SeleniumWrapper.clickAction(category_clear, driver); //Click Category Clear Button
 
-      SeleniumWrapper.clickAction(category_clear, driver);
+      Thread.sleep(3000); 
+ 
+      SeleniumWrapper.clickAction(duration_clear, driver); //Click Duration Clear Button
 
-      Thread.sleep(5000); 
-
-    //   duration_clear.click();
-    SeleniumWrapper.clickAction(duration_clear, driver);
-
-      Thread.sleep(5000);
+      Thread.sleep(3000);
       
       List<WebElement> searchResultafterclear = driver.findElements(By.xpath("//div[@class='col-6 col-lg-3 mb-4']//a"));
       String unfiltersearchResultsCount = String.valueOf(searchResultafterclear.size());

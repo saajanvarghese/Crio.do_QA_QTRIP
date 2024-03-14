@@ -39,7 +39,7 @@ public class testCase_04 {
     }
 
     //Initialize webdriver for our unit tests
-    //@BeforeTest(alwaysRun = true)
+    @BeforeTest(alwaysRun = true)
     public static void createDriver() throws MalformedURLException {
         logStatus("driver", "Initializing driver", "Started");
         // Launch Browser using Zalenium
@@ -59,7 +59,7 @@ public class testCase_04 {
         logStatus("driver", "Initializing driver", "Success");   
     }
 
-  //@Test(description = "Booking adventure and validate Reservation Table", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 4, groups={"Reliability Flow"}, enabled = true)
+  @Test(description = "Booking adventure and validate Reservation Table", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 4, groups={"Reliability Flow"}, enabled = true)
     public static void TestCase04(String username,String password,String set1,String set2,String set3) throws InterruptedException, MalformedURLException
     {
         String[] dataset1=set1.split(";");
@@ -210,7 +210,7 @@ public class testCase_04 {
     } 
 }
 
-       // @AfterTest(enabled = true)
+        @AfterTest(enabled = true)
         public static void quitDriver() throws MalformedURLException {
             reports.endTest(test);
             reports.flush();

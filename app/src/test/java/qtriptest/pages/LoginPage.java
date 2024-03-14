@@ -1,7 +1,7 @@
 package qtriptest.pages;
 
 import java.time.Duration;
-import java.util.UUID;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,14 +41,10 @@ public class LoginPage {
     }
 
     public Boolean logInUser(String emailAddress, String password) throws InterruptedException{
-        // emailInput.clear();
-        // emailInput.sendKeys(emailAddress);
-        // passwordInput.clear();
-        // passwordInput.sendKeys(password);
-        SeleniumWrapper.enterText(emailInput, emailAddress);
-            SeleniumWrapper.enterText(passwordInput, password);
-            SeleniumWrapper.clickAction(login, driver);
-        //login.click();
+
+        SeleniumWrapper.enterText(emailInput, emailAddress); //Enter Email in Email TextBox
+            SeleniumWrapper.enterText(passwordInput, password); //Enter Password in Password TextBox
+            SeleniumWrapper.clickAction(login, driver);  //Click Login Button
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@onclick='Logout()']")));
@@ -60,7 +56,7 @@ public class LoginPage {
 
     public Boolean logOutUser() throws InterruptedException{
 
-        logout.click();
+        SeleniumWrapper.clickAction(logout, driver); // click Logout Button
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@class='nav-link login register']")));

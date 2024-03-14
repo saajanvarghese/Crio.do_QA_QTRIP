@@ -45,8 +45,8 @@ public class HistoryPage {
         String transaction_id_value = transaction_id.getText();
 
         System.out.println("Transaction ID : "+transaction_id_value);
-        //cancelbtn.click();
-         SeleniumWrapper.clickAction(cancelbtn, driver);
+
+         SeleniumWrapper.clickAction(cancelbtn, driver); //Click Cancel Button
 
         Thread.sleep(3000);
 

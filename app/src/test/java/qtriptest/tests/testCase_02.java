@@ -6,9 +6,7 @@ import qtriptest.ReportSingleton;
 import qtriptest.SeleniumWrapper;
 import qtriptest.pages.HomePage;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.UUID;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;

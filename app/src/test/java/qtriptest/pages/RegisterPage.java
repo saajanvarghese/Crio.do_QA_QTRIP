@@ -50,19 +50,11 @@ public class RegisterPage {
         }else{
             emailAddress = username;
         }
-            // userNameInput.clear();
-            // userNameInput.sendKeys(emailAddress);
-            // passwordInput.clear();
-            // passwordInput.sendKeys(password);
-            // confirmPasswordInput.clear();
-            // confirmPasswordInput.sendKeys(confirmpassword);
-            // registerNowElement.click();
-            // Thread.sleep(3000);
 
-            SeleniumWrapper.enterText(userNameInput, emailAddress);
-            SeleniumWrapper.enterText(passwordInput, password);
-            SeleniumWrapper.enterText(confirmPasswordInput, password);
-            SeleniumWrapper.clickAction(registerNowElement, driver);
+            SeleniumWrapper.enterText(userNameInput, emailAddress); //Enter Email in Email TextBox
+            SeleniumWrapper.enterText(passwordInput, password); //Enter Password in Password TextBox
+            SeleniumWrapper.enterText(confirmPasswordInput, password);  //Enter password in Confirm Password TextBox
+            SeleniumWrapper.clickAction(registerNowElement, driver); //Click Register Button
 
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
             wait.until(ExpectedConditions.urlToBe("https://qtripdynamic-qa-frontend.vercel.app/pages/login"));

@@ -42,34 +42,26 @@ public class AdventureDetailsPage {
     }
 
     public Boolean bookAdventure(String guestName, String date, String count) throws InterruptedException{
-        // guest_Name.click();
 
-        // guest_Name.sendKeys(guestName);
-
-        SeleniumWrapper.clickAction(guest_Name, driver);
-        SeleniumWrapper.enterText(guest_Name, guestName);
+        SeleniumWrapper.clickAction(guest_Name, driver);  // Click Name TextBox
+        SeleniumWrapper.enterText(guest_Name, guestName); // Enter Guest Name
 
         Thread.sleep(1000);
 
-        //reserveDate.click();
-        SeleniumWrapper.clickAction(reserveDate, driver);
+        SeleniumWrapper.clickAction(reserveDate, driver);  //Click Date Button
 
         Thread.sleep(1000);
 
-        //reserveDate.sendKeys(date);
-        SeleniumWrapper.enterText(reserveDate, date);
+        SeleniumWrapper.enterText(reserveDate, date); //Enter Date
 
         Thread.sleep(1000);
 
-        //personCount.click();
-        SeleniumWrapper.clickAction(personCount, driver);
-        SeleniumWrapper.enterText(personCount, count);
-        //personCount.sendKeys(count);
+        SeleniumWrapper.clickAction(personCount, driver); //Click Person Count
+        SeleniumWrapper.enterText(personCount, count);  // Enter Person Count
 
         Thread.sleep(1000);
 
-        //reservebtn.click();
-        SeleniumWrapper.clickAction(reservebtn, driver);
+        SeleniumWrapper.clickAction(reservebtn, driver);  //Click Reserve Button
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("reserved-banner")));
