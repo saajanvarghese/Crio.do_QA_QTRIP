@@ -16,6 +16,7 @@ public class SeleniumWrapper {
         try{
             inputBox.clear();
             inputBox.sendKeys(keysToSend);
+            Thread.sleep(1000);
             return true;
         }catch(Exception e){
             return false;

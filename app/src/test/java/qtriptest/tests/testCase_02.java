@@ -114,12 +114,11 @@ public class testCase_02 {
 
     }
 
-    @AfterSuite(enabled = false)
+    @AfterSuite(enabled = true)
         public static void quitDriver() throws MalformedURLException {
             reports.endTest(test);
             reports.flush();
 
-        driver.close();
         driver.quit();
         logStatus("driver", "Quiting Driver", "Success");
     }

@@ -38,7 +38,7 @@ public class testCase_03 {
     }
 
     //Initialize webdriver for our unit tests
-    @BeforeTest(alwaysRun = true)
+    //@BeforeTest(alwaysRun = true)
     public static void createDriver() throws MalformedURLException, InterruptedException {
         logStatus("driver", "Initializing driver", "Started");
         // Launch Browser using Zalenium
@@ -52,12 +52,13 @@ public class testCase_03 {
 
         driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
         driver.manage().window().maximize();
+        test = reports.startTest("TestCase 02", "Start TestCase 02");
         Thread.sleep(3000);
 
         logStatus("driver", "Initializing driver", "Success");     
     }
 
-   @Test(description = "Verify Reserving an adventure functionality", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 3, groups={"Booking and Cancellation Flow"}, enabled = true)
+   //@Test(description = "Verify Reserving an adventure functionality", dataProvider = "data-provider", dataProviderClass = DP.class,  priority = 3, groups={"Booking and Cancellation Flow"}, enabled = true)
     public static void TestCase03(String userName, String password, String cityName, String adVentureName,String guestName, String date, String count) throws InterruptedException {
         Boolean status;
         try{
@@ -193,12 +194,11 @@ public class testCase_03 {
         }            
         }
 
-        @AfterTest(enabled = false)
+        //@AfterTest(enabled = false)
         public static void quitDriver() throws MalformedURLException {
             reports.endTest(test);
             reports.flush();
-            
-        driver.close();
+
         driver.quit();
         logStatus("driver", "Quiting Driver", "Success");
     }

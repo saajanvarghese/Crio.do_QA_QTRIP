@@ -57,7 +57,7 @@ public class AdventureDetailsPage {
         Thread.sleep(1000);
 
         //reserveDate.sendKeys(date);
-        SeleniumWrapper.enterText(reserveDate, guestName);
+        SeleniumWrapper.enterText(reserveDate, date);
 
         Thread.sleep(1000);
 
